@@ -1,0 +1,74 @@
+import cloudinary from "@/lib/cloudinary";
+import { connectToDatabase } from "@/lib/mongodb";
+import Video from "@/models/Video";
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  try {
+    await connectToDatabase();
+    const videos = await Video.find().sort({ createdAt: -1 }).lean();
+    return NextResponse.json(videos);
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch videos. Please try again later." }, 
+      { status: 503 }
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    await connectToDatabase();
+    const formData = await request.formData();
+
+  const file = formData.get("file");
+  const title = String(formData.get("title") || "Untitled");
+  const youtubeUrl = formData.get("youtubeUrl");
+
+  // If a YouTube URL is provided, save it directly without Cloudinary
+  if (typeof youtubeUrl === "string" && youtubeUrl.trim().length > 0) {
+    const created = await Video.create({
+      title,
+      url: youtubeUrl.trim(),
+      sourceType: "youtube",
+    });
+    return NextResponse.json(created, { status: 201 });
+  }
+
+  if (!(file instanceof File)) {
+    return NextResponse.json({ error: "File is required" }, { status: 400 });
+  }
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const uploaded = await new Promise<{ secure_url: string; public_id: string }>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { resource_type: "video", folder: "khalil-studio/testimonials" },
+      (error, result) => {
+        if (error || !result) return reject(error);
+        resolve({ secure_url: result.secure_url, public_id: result.public_id });
+      }
+    );
+    stream.end(buffer);
+  });
+
+    const created = await Video.create({
+      title,
+      url: uploaded.secure_url,
+      publicId: uploaded.public_id,
+      sourceType: "cloudinary",
+    });
+
+    return NextResponse.json(created, { status: 201 });
+  } catch (error) {
+    console.error("Error creating video:", error);
+    return NextResponse.json(
+      { error: "Failed to create video. Please try again later." }, 
+      { status: 503 }
+    );
+  }
+}
+
+

@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+/* Use class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+/* Smooth scrolling for sticky/scroll nav */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Using Tailwind classes for theming and scroll-snap; no custom CSS needed here */
+
