@@ -39,9 +39,9 @@ export default function VirtualAssistant() {
     const style = document.createElement('style');
     style.textContent = `
       .bp-widget-container {
-        right: 20px !important;
+        right: 16px !important;
         left: auto !important;
-        bottom: 20px !important;
+        bottom: 80px !important;
       }
       .bp-widget-container .bp-widget {
         position: fixed !important;
@@ -50,26 +50,46 @@ export default function VirtualAssistant() {
       .bp-widget-container .bp-widget iframe {
         border-radius: 12px !important;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+        max-width: calc(100vw - 32px) !important;
+        max-height: calc(100vh - 100px) !important;
       }
       .bp-fab {
-        right: 20px !important;
+        right: 16px !important;
         left: auto !important;
-        bottom: 20px !important;
+        bottom: 80px !important;
         z-index: 9998 !important;
+        width: 56px !important;
+        height: 56px !important;
       }
       [data-bp-widget] {
-        right: 20px !important;
+        right: 16px !important;
         left: auto !important;
-        bottom: 20px !important;
+        bottom: 80px !important;
         z-index: 9998 !important;
       }
       .bp-widget-container,
       .bp-widget,
       .bp-fab,
       [data-bp-widget] {
-        right: 20px !important;
+        right: 16px !important;
         left: auto !important;
-        bottom: 20px !important;
+        bottom: 80px !important;
+      }
+      @media (max-width: 768px) {
+        .bp-widget-container {
+          right: 12px !important;
+          bottom: 70px !important;
+        }
+        .bp-fab {
+          right: 12px !important;
+          bottom: 70px !important;
+          width: 48px !important;
+          height: 48px !important;
+        }
+        .bp-widget-container .bp-widget iframe {
+          max-width: calc(100vw - 24px) !important;
+          max-height: calc(100vh - 90px) !important;
+        }
       }
     `;
     document.head.appendChild(style);

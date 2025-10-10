@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-  import { RiHome5Line, RiLightbulbFlashLine, RiVideoLine } from "react-icons/ri";
+import { RiHome5Line, RiLightbulbFlashLine, RiVideoLine } from "react-icons/ri";
 
   const sections = [
     { id: "home", label: "Home", icon: RiHome5Line },
@@ -58,18 +58,18 @@ export default function StickyNav() {
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur bg-black/5 dark:bg-white/5 border-b border-black/10 dark:border-white/10 text-black dark:text-white">
-      <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-center gap-4 overflow-x-auto">
-                {sections.map(({ id, label, icon: Icon }) => (
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-2 sm:py-3 flex items-center justify-center gap-2 sm:gap-4 overflow-x-auto">
+        {sections.map(({ id, label, icon: Icon }) => (
           <Link key={id} href={`/#${id}`} className="group">
             <span
-              className={`inline-flex items-center gap-2 px-3 py-2 rounded-full transition-colors ${
+              className={`inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-full transition-colors ${
                 active === id
                   ? "bg-black text-white dark:bg-white dark:text-black"
                   : "text-black/70 hover:text-black dark:text-white/80 dark:hover:text-white"
               }`}
             >
-              <Icon className="text-xl" />
-              <span className="text-sm font-medium">{label}</span>
+              <Icon className="text-lg sm:text-xl" />
+              <span className="text-xs sm:text-sm font-medium whitespace-nowrap">{label}</span>
             </span>
           </Link>
         ))}

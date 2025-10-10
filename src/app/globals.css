@@ -7,6 +7,16 @@
   color-scheme: light dark;
 }
 
+/* Prevent flash of incorrect theme */
+html {
+  color-scheme: light dark;
+}
+
+/* Ensure smooth theme transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
 html,
 body,
 #__next {
@@ -19,4 +29,63 @@ html {
 }
 
 /* Using Tailwind classes for theming and scroll-snap; no custom CSS needed here */
+
+/* Shimmer animation for loading states */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Responsive utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile-first responsive breakpoints */
+@media (min-width: 475px) {
+  .xs\:inline {
+    display: inline;
+  }
+}
+
+/* Ensure proper touch targets on mobile */
+@media (max-width: 768px) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Improve scroll behavior on mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 80px;
+  }
+}
+
+/* Prevent white flash on Three.js canvas */
+canvas {
+  background-color: transparent !important;
+}
+
+/* Ensure proper background for canvas container */
+.fixed.inset-0.-z-10 {
+  background-color: var(--background-color, #ffffff);
+}
+
+.dark .fixed.inset-0.-z-10 {
+  background-color: var(--background-color, #0a0a0a);
+}
 

@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 interface TestimonialContextValue {
   videos: Video[];
+  isLoading: boolean;
   refresh: () => Promise<void>;
 }
 
@@ -12,12 +13,18 @@ const TestimonialContext = createContext<TestimonialContextValue | undefined>(un
 
 export function TestimonialProvider({ children }: { children: ReactNode }) {
   const [videos, setVideos] = useState<Video[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchVideos = async () => {
+    setIsLoading(true);
     const res = await fetch("/api/videos", { cache: "no-store" });
-    if (!res.ok) return;
+    if (!res.ok) {
+      setIsLoading(false);
+      return;
+    }
     const data = (await res.json()) as Video[];
     setVideos(data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -27,9 +34,10 @@ export function TestimonialProvider({ children }: { children: ReactNode }) {
   const value = useMemo(
     () => ({
       videos,
+      isLoading,
       refresh: fetchVideos,
     }),
-    [videos]
+    [videos, isLoading]
   );
 
   return <TestimonialContext.Provider value={value}>{children}</TestimonialContext.Provider>;
