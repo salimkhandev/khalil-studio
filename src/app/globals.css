@@ -89,3 +89,167 @@ canvas {
   background-color: var(--background-color, #0a0a0a);
 }
 
+/* Apply Bitcount Single Ink font to Khalil Studio name */
+header h1,
+#home h1 {
+  font-family: 'Bitcount Single Ink', monospace;
+}
+
+/* Apply Orbitron font to sticky navigation */
+nav span {
+  font-family: 'Orbitron', monospace;
+  font-weight: 500;
+}
+
+/* Apply Space Grotesk font to Skills and Video Projects sections with 3D effect */
+#skills h3,
+#VideoProjects h3 {
+  font-family: 'Space Grotesk', sans-serif !important;
+  background: linear-gradient(45deg, #c92b2b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    text-shadow:
+      /* Reduced 3D effect with colorful shadows */
+      2px 0 0 #c92b2b,
+      1px 0 0 #4ecdc4,
+      1px 1px 0 #45b7d1,
+      2px 1px 0 #96ceb4,
+      0 2px 0 #feca57,
+      /* Reduced deep shadow */
+      4px 4px 4px rgba(0, 0, 0, 0.2);
+    transform: perspective(500px) rotateX(15deg) rotateY(-5deg);
+    transform-style: preserve-3d;
+    animation: float3D 4s ease-in-out infinite, gradientShift 3s ease-in-out infinite;
+}
+
+#skills li {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 500 !important;
+}
+
+/* Apply Nabla font to home section only with 3D isometric effect */
+#home h2,
+#home p {
+  font-family: 'Nabla', cursive;
+  background: linear-gradient(45deg, #c92b2b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+  text-shadow: 
+    /* 3D effect with colorful shadows */
+    4px 0 0 #c92b2b,
+    8px 0 0 #4ecdc4,
+    4px 4px 0 #45b7d1,
+    8px 4px 0 #96ceb4,
+    0 4px 0 #feca57,
+    /* Deep shadow */
+    8px 8px 8px rgba(0, 0, 0, 0.3);
+  transform: perspective(500px) rotateX(15deg) rotateY(-5deg);
+  transform-style: preserve-3d;
+  animation: float3D 4s ease-in-out infinite, gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes float3D {
+  0%, 100% {
+    transform: perspective(500px) rotateX(15deg) rotateY(-5deg) translateY(0px);
+  }
+  50% {
+    transform: perspective(500px) rotateX(15deg) rotateY(-5deg) translateY(-10px);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 3D Card Styling for Skills and Video Projects */
+#skills li,
+#VideoProjects .testimonial-card {
+  background: linear-gradient(145deg, #ffffff, #f0f0f0) !important;
+  border: none !important;
+  box-shadow: 
+    /* Top highlight */
+    0 -2px 4px rgba(255, 255, 255, 0.8),
+    /* Main 3D shadow */
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    /* Inner shadow for depth */
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transform: perspective(1000px) rotateX(2deg) rotateY(-1deg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dark mode 3D cards */
+.dark #skills li,
+.dark #VideoProjects .testimonial-card {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
+  box-shadow: 
+    /* Top highlight */
+    0 -2px 4px rgba(255, 255, 255, 0.1),
+    /* Main 3D shadow */
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    /* Inner shadow for depth */
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Hover effects for 3D cards */
+#skills li:hover,
+#VideoProjects .testimonial-card:hover {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-8px) scale(1.02);
+  box-shadow: 
+    /* Enhanced top highlight */
+    0 -4px 8px rgba(255, 255, 255, 0.9),
+    /* Enhanced 3D shadow */
+    0 16px 32px rgba(0, 0, 0, 0.15),
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    /* Enhanced inner shadow */
+    inset 0 2px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dark #skills li:hover,
+.dark #VideoProjects .testimonial-card:hover {
+  box-shadow: 
+    /* Enhanced top highlight */
+    0 -4px 8px rgba(255, 255, 255, 0.15),
+    /* Enhanced 3D shadow */
+    0 16px 32px rgba(0, 0, 0, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    /* Enhanced inner shadow */
+    inset 0 2px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Add subtle gradient overlay for extra depth */
+#skills li::before,
+#VideoProjects .testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.05) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.dark #skills li::before,
+.dark #VideoProjects .testimonial-card::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
+}

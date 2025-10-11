@@ -143,7 +143,7 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
 
 function ShimmerCard() {
   return (
-    <div className="space-y-2">
+    <div className="space-y-2"> 
       <div className="relative w-full aspect-video rounded-lg border border-black/10 dark:border-white/10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 animate-pulse">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/10 animate-shimmer"></div>

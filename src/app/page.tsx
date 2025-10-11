@@ -15,62 +15,81 @@ export default function HomePage() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <header className="py-6 sm:py-8 lg:py-10 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Profile picture from /public/images/khalil.png */}
+            {/* Desktop profile picture - hidden on mobile */}
             <Image
               src="/images/khalil.png"
               alt="Profile"
-              width={48}
-              height={48}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-black/10 dark:border-white/20"
+              width={64}
+              height={64}
+              className="hidden sm:block w-14 h-14 sm:w-16 sm:h-16 lg:w-18 lg:h-18 rounded-full object-cover border border-black/10 dark:border-white/20"
               priority
             />
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">Khalil Studio</h1>
+            {/* Desktop version - hidden on mobile */}
+            <h1 className="hidden sm:block text-4xl font-medium bg-gradient-to-r from-red-400 via-blue-400 to-yellow-400 bg-clip-text text-transparent animate-pulse">Khalil Studio</h1>
           </div>
           <ThemeToggle />
         </header>
       </div>
-      <section id="home" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col justify-center snap-start">
-        <motion.h2
-          className="mt-4 sm:mt-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight"
+        <section id="home" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 flex flex-col justify-center snap-start">
+        {/* Mobile profile picture - hidden on desktop */}
+        <motion.div 
+          className="sm:hidden mb-4 flex justify-center -mt-26"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Creative Studio for Motion, 3D, and Web Experiences
-        </motion.h2>
-        <motion.p
-          className="mt-3 sm:mt-4 text-base sm:text-lg text-black/70 dark:text-white/80 max-w-2xl"
+          <Image
+            src="/images/khalil.png"
+            alt="Profile"
+            width={96}
+            height={96}
+            className="w-24 h-24 rounded-full object-cover border border-black/10 dark:border-white/20"
+            priority
+          />
+        </motion.div>
+        {/* Mobile version - hidden on desktop */}
+        <motion.h1 
+          className="block sm:hidden text-4xl font-medium bg-gradient-to-r from-red-400 via-blue-400 to-yellow-400 bg-clip-text text-transparent animate-pulse mb-6 ml-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.6 }}
+          transition={{ duration: 0.6 }}
         >
-          We blend design, code, and animation to craft immersive digital products.
-        </motion.p>
+          Khalil Studio
+        </motion.h1>
+        <motion.h2
+          className="mt-4 sm:mt-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight ml-2 sm:ml-0"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+Expert Video Editor for YouTube Creators, Brand Promos, and Engaging Shorts
+        </motion.h2>
       </section>
 
 
       <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 min-h-screen flex flex-col justify-center snap-start">
-        <motion.h3 className="text-xl sm:text-2xl font-semibold" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <motion.h3 className="text-2xl sm:text-3xl" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           Skills
         </motion.h3>
         <ul className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 text-sm sm:text-base text-black/90 dark:text-white/90">
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Storytelling Sense 🎬</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Color Correction & Sound Balancing 🎧</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Smooth Transitions for Cinematic Results 🎞️</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">YouTube Thumbnails & Social Media Visuals (Canva, Photoshop) 🖌️</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Video Formats, Frame Rates & Compression for Web/YouTube Optimization ⚙️</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Timing, Rhythm & Pacing ⏱️</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Strong Attention to Detail 👀</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Flexible Editing: Vlogs, Cinematic Videos, Reels & YouTube Content 🎥</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Familiar with Editing Tools (CapCut, Premiere Pro, DaVinci Resolve, Canva) 🧰</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Storytelling Sense (CapCut, Canva)</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Color Correction & Sound Balancing</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Smooth Transitions for Cinematic Results</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">YouTube Thumbnails & Social Media Visuals (Photoshop)</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Video Formats, Frame Rates & Compression for Web/YouTube Optimization</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Timing, Rhythm & Pacing</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Strong Attention to Detail</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Flexible Editing: Vlogs, Cinematic Videos, Reels & YouTube Content</li>
+          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Familiar with Editing Tools</li>
         </ul>
       </section>
 
 
       <section id="VideoProjects" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 min-h-screen flex flex-col justify-center snap-start">
-        <motion.h3 className="text-xl sm:text-2xl font-semibold" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <motion.h3 className="text-2xl sm:text-3xl" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           Video Projects
         </motion.h3>
         <div className="mt-4 sm:mt-6">
