@@ -72,7 +72,7 @@ Expert Video Editor for YouTube Creators, Brand Promos, and Engaging Shorts
 
 
       <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 min-h-screen flex flex-col justify-center snap-start">
-        <motion.h3 className="text-2xl sm:text-3xl" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <motion.h3 className="text-3xl sm:text-4xl lg:text-5xl" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           Skills
         </motion.h3>
         <SkillsList />
@@ -80,7 +80,7 @@ Expert Video Editor for YouTube Creators, Brand Promos, and Engaging Shorts
 
 
       <section id="VideoProjects" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 min-h-screen flex flex-col justify-center snap-start">
-        <motion.h3 className="text-2xl sm:text-3xl" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <motion.h3 className="text-3xl sm:text-4xl lg:text-5xl" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           Video Projects
         </motion.h3>
         <div className="mt-4 sm:mt-6">

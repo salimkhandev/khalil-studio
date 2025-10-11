@@ -39,18 +39,37 @@ export default function TestimonialList() {
 }
 
 function YouTubePlayer({ url, title }: { url: string; title: string }) {
-  // Supports https://www.youtube.com/watch?v=VIDEO_ID and https://youtu.be/VIDEO_ID
-  const match =
-    url.match(/[?&]v=([a-zA-Z0-9_-]{6,})/) || url.match(/youtu\.be\/([a-zA-Z0-9_-]{6,})/);
-  const id = match?.[1];
-  if (!id) {
+  // Enhanced YouTube URL parsing to support more formats
+  let videoId = null;
+  
+  // Try different YouTube URL patterns
+  const patterns = [
+    /[?&]v=([a-zA-Z0-9_-]{11})/,  // youtube.com/watch?v=VIDEO_ID
+    /youtu\.be\/([a-zA-Z0-9_-]{11})/,  // youtu.be/VIDEO_ID
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,  // youtube.com/embed/VIDEO_ID
+    /youtube\.com\/v\/([a-zA-Z0-9_-]{11})/,  // youtube.com/v/VIDEO_ID
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,  // youtube.com/shorts/VIDEO_ID
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match && match[1]) {
+      videoId = match[1];
+      break;
+    }
+  }
+  
+  if (!videoId) {
     return (
-      <a href={url} target="_blank" className="text-blue-600 underline">
-        Open on YouTube
-      </a>
+      <div className="w-full aspect-video rounded-lg border border-black/10 dark:border-white/10 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+        <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline text-center">
+          Open on YouTube
+        </a>
+      </div>
     );
   }
-  const embed = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&controls=1&loop=1&playlist=${id}`;
+  
+  const embed = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&controls=1&loop=1&playlist=${videoId}`;
   return (
     <iframe
       src={embed}
@@ -66,6 +85,7 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
   const [muted, setMuted] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -77,6 +97,18 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
       videoRefs.delete(videoId);
     };
   }, [muted, videoId]);
+
+  // Check if device is mobile on mount and resize
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -101,13 +133,23 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
   return (
     <div 
       className="relative group"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => {
+        // Only enable hover on desktop/tablet (not mobile)
+        if (!isMobile) {
+          setIsHovered(true);
+        }
+      }}
+      onMouseLeave={() => {
+        // Only enable hover on desktop/tablet (not mobile)
+        if (!isMobile) {
+          setIsHovered(false);
+        }
+      }}
     > 
       <video
         ref={videoRef}
         src={url}
-        controls={isPlaying || isHovered}
+        controls={isPlaying || (isHovered && !isMobile)}
         loop
         muted
         playsInline
@@ -119,8 +161,8 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
         onPause={handlePause}
         className="w-full rounded-lg border border-black/10 dark:border-white/10"
       />
-      {/* Play/Pause button overlay */}
-      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-200 pointer-events-none ${
+      {/* Play/Pause button overlay - hidden on mobile */}
+      <div className={`hidden sm:flex absolute inset-0 items-center justify-center transition-opacity duration-200 pointer-events-none ${
         isHovered ? 'opacity-100' : 'opacity-0'
       }`}>
         <div className="w-16 h-16 rounded-full bg-black/60 dark:bg-white/20 flex items-center justify-center">
@@ -131,12 +173,12 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
           )}
         </div>
       </div>
-      <button
+      {/* <button
         onClick={() => setMuted((m) => !m)}
         className="absolute bottom-2 right-2 rounded-md bg-black/60 text-white p-1.5 hover:bg-black/70"
       >
         {muted ? <RiVolumeMuteFill size={14} /> : <RiVolumeUpFill size={14} />}
-      </button>
+      </button> */}
     </div>
   );
 }
