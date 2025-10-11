@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // GET - Fetch a specific skill
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
@@ -19,12 +19,14 @@ export async function GET(
       return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
     }
 
-    if (!mongoose.Types.ObjectId.isValid(params.id)) {
+    const { id } = await params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: 'Invalid skill ID' }, { status: 400 });
     }
 
     const skill = await Skill.findOne({ 
-      _id: params.id, 
+      _id: id, 
       userId: adminAuth 
     });
 
@@ -45,7 +47,7 @@ export async function GET(
 // PUT - Update a skill
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
@@ -57,7 +59,9 @@ export async function PUT(
       return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
     }
 
-    if (!mongoose.Types.ObjectId.isValid(params.id)) {
+    const { id } = await params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: 'Invalid skill ID' }, { status: 400 });
     }
 
@@ -65,7 +69,7 @@ export async function PUT(
     const { title, description, tools, order, isActive } = body;
 
     const skill = await Skill.findOneAndUpdate(
-      { _id: params.id, userId: adminAuth },
+      { _id: id, userId: adminAuth },
       {
         ...(title && { title }),
         ...(description !== undefined && { description }),
@@ -93,7 +97,7 @@ export async function PUT(
 // DELETE - Delete a skill (soft delete by setting isActive to false)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
@@ -105,12 +109,14 @@ export async function DELETE(
       return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
     }
 
-    if (!mongoose.Types.ObjectId.isValid(params.id)) {
+    const { id } = await params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: 'Invalid skill ID' }, { status: 400 });
     }
 
     const skill = await Skill.findOneAndUpdate(
-      { _id: params.id, userId: adminAuth },
+      { _id: id, userId: adminAuth },
       { isActive: false },
       { new: true }
     );
