@@ -28,9 +28,13 @@ export async function POST(request: Request) {
 
   // If a YouTube URL is provided, save it directly without Cloudinary
   if (typeof youtubeUrl === "string" && youtubeUrl.trim().length > 0) {
+    // Generate unique ID for YouTube videos to avoid duplicate key errors
+    const generateUniqueId = () => `youtube_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
     const created = await Video.create({
       title,
       url: youtubeUrl.trim(),
+      publicId: generateUniqueId(),
       sourceType: "youtube",
     });
     return NextResponse.json(created, { status: 201 });
