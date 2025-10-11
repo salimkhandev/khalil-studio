@@ -86,6 +86,7 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showControls, setShowControls] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -112,6 +113,7 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
 
   const handlePlay = () => {
     setIsPlaying(true);
+    setShowControls(true);
     // Mute all other videos when this one starts playing
     if (currentlyPlayingVideo && currentlyPlayingVideo !== videoId) {
       const otherVideo = videoRefs.get(currentlyPlayingVideo);
@@ -125,9 +127,21 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
 
   const handlePause = () => {
     setIsPlaying(false);
+    // Keep controls visible for a few seconds after pausing
+    setShowControls(true);
+    setTimeout(() => {
+      if (!isHovered && !isMobile) {
+        setShowControls(false);
+      }
+    }, 3000);
     if (currentlyPlayingVideo === videoId) {
       currentlyPlayingVideo = null;
     }
+  };
+
+  const handleClick = () => {
+    // Toggle controls visibility on click
+    setShowControls(!showControls);
   };
 
   return (
@@ -137,19 +151,26 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
         // Only enable hover on desktop/tablet (not mobile)
         if (!isMobile) {
           setIsHovered(true);
+          setShowControls(true);
         }
       }}
       onMouseLeave={() => {
         // Only enable hover on desktop/tablet (not mobile)
         if (!isMobile) {
           setIsHovered(false);
+          // Keep controls visible for a moment after hover ends
+          setTimeout(() => {
+            if (!isPlaying) {
+              setShowControls(false);
+            }
+          }, 1000);
         }
       }}
     > 
       <video
         ref={videoRef}
         src={url}
-        controls={isPlaying || (isHovered && !isMobile)}
+        controls={isPlaying || showControls || (isHovered && !isMobile)}
         loop
         muted
         playsInline
@@ -159,6 +180,7 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
         onContextMenu={(e) => e.preventDefault()}
         onPlay={handlePlay}
         onPause={handlePause}
+        onClick={handleClick}
         className="w-full rounded-lg border border-black/10 dark:border-white/10"
       />
       {/* Play/Pause button overlay - hidden on mobile */}
@@ -173,12 +195,12 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
           )}
         </div>
       </div>
-      <button
+      {/* <button
         onClick={() => setMuted((m) => !m)}
         className="absolute bottom-2 right-2 rounded-md bg-black/60 text-white p-1.5 hover:bg-black/70"
       >
         {muted ? <RiVolumeMuteFill size={12} /> : <RiVolumeUpFill size={12} />}
-      </button>
+      </button> */}
     </div>
   );
 }
