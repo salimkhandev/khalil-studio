@@ -173,12 +173,12 @@ function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) 
           )}
         </div>
       </div>
-      {/* <button
+      <button
         onClick={() => setMuted((m) => !m)}
         className="absolute bottom-2 right-2 rounded-md bg-black/60 text-white p-1.5 hover:bg-black/70"
       >
-        {muted ? <RiVolumeMuteFill size={14} /> : <RiVolumeUpFill size={14} />}
-      </button> */}
+        {muted ? <RiVolumeMuteFill size={12} /> : <RiVolumeUpFill size={14} />}
+      </button>
     </div>
   );
 }
