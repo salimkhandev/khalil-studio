@@ -130,10 +130,10 @@ nav span {
   font-weight: 500 !important;
 }
 
-/* Apply Nabla font to home section only with 3D isometric effect */
+/* Apply Poppins font to home section only with 3D isometric effect */
 #home h2,
 #home p {
-  font-family: 'Nabla', cursive;
+  font-family: 'Poppins', sans-serif;
   background: linear-gradient(45deg, #c92b2b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
   background-size: 300% 300%;
   -webkit-background-clip: text;
