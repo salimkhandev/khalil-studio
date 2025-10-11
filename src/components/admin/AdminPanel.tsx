@@ -62,8 +62,32 @@ export default function AdminPanel() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/admin/logout", { method: "POST" });
+      if (!res.ok) throw new Error("Logout failed");
+      toast.success("Logged out successfully");
+      // Redirect to login page or refresh to show login form
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Logout failed");
+    }
+  };
+
   return (
     <div className="space-y-6">
+      {/* Header with Logout Button */}
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Admin Panel</h2>
+        <button
+          onClick={handleLogout}
+          className="inline-flex items-center gap-2 rounded-lg bg-red-600 hover:bg-red-700 px-4 py-2 text-white transition-colors"
+        >
+          Logout
+        </button>
+      </div>
+
       {/* Tab Navigation */}
       <div className="flex space-x-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
         <button
