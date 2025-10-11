@@ -2,6 +2,7 @@
  
 import VirtualAssistant from "@/components/assistant/VirtualAssistant";
 import StickyNav from "@/components/layout/StickyNav";
+import SkillsList from "@/components/skills/SkillsList";
 import TestimonialList from "@/components/testimonials/TestimonialList";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -74,17 +75,7 @@ Expert Video Editor for YouTube Creators, Brand Promos, and Engaging Shorts
         <motion.h3 className="text-2xl sm:text-3xl" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           Skills
         </motion.h3>
-        <ul className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 text-sm sm:text-base text-black/90 dark:text-white/90">
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Storytelling Sense (CapCut, Canva)</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Color Correction & Sound Balancing</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Smooth Transitions for Cinematic Results</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">YouTube Thumbnails & Social Media Visuals (Photoshop)</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Video Formats, Frame Rates & Compression for Web/YouTube Optimization</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Timing, Rhythm & Pacing</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Strong Attention to Detail</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Flexible Editing: Vlogs, Cinematic Videos, Reels & YouTube Content</li>
-          <li className="rounded-xl border border-black/10 dark:border-white/10 p-4 sm:p-6 bg-black/5 dark:bg-white/5">Familiar with Editing Tools</li>
-        </ul>
+        <SkillsList />
       </section>
 
 

@@ -2,7 +2,8 @@
 import { useTestimonials } from "@/context/TestimonialContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { RiDeleteBinLine, RiLoader4Line, RiUploadCloud2Line } from "react-icons/ri";
+import { RiDeleteBinLine, RiLightbulbFlashLine, RiLoader4Line, RiUploadCloud2Line, RiVideoLine } from "react-icons/ri";
+import SkillManager from "./SkillManager";
 
 export default function AdminPanel() {
   const { refresh } = useTestimonials();
@@ -11,6 +12,7 @@ export default function AdminPanel() {
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "uploading" | "deleting">("idle");
+  const [activeTab, setActiveTab] = useState<"videos" | "skills">("videos");
 
   const onUpload = async () => {
     if (!file && !youtubeUrl.trim()) return;
@@ -58,46 +60,79 @@ export default function AdminPanel() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-black/5 dark:bg-white/5">
-        <div className="flex flex-col sm:flex-row gap-3 items-center">
-          <input
-            placeholder="Title"
-            className="w-full rounded-lg bg-black/5 dark:bg-white/10 px-3 py-2 text-sm text-black dark:text-white outline-none"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            placeholder="YouTube URL (optional)"
-            className="w-full rounded-lg bg-black/5 dark:bg-white/10 px-3 py-2 text-sm text-black dark:text-white outline-none"
-            value={youtubeUrl}
-            onChange={(e) => setYoutubeUrl(e.target.value)}
-          />
-          <input
-            type="file"
-            accept="video/*"
-            onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-            className="text-black/80 dark:text-white/80"
-          />
-          <button
-            onClick={onUpload}
-            disabled={loading || (!file && !youtubeUrl.trim())}
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white disabled:opacity-50"
-          >
-            {status === "uploading" ? (
-              <>
-                <RiLoader4Line className="animate-spin" /> Uploading...
-              </>
-            ) : (
-              <>
-                <RiUploadCloud2Line /> Upload
-              </>
-            )}
-          </button>
-        </div>
+      {/* Tab Navigation */}
+      <div className="flex space-x-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
+        <button
+          onClick={() => setActiveTab("videos")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
+            activeTab === "videos"
+              ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm"
+              : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+          }`}
+        >
+          <RiVideoLine />
+          Video Projects
+        </button>
+        <button
+          onClick={() => setActiveTab("skills")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
+            activeTab === "skills"
+              ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm"
+              : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+          }`}
+        >
+          <RiLightbulbFlashLine />
+          Skills
+        </button>
       </div>
 
-      {/* Manage list inline for admin convenience */}
-      <AdminList onDelete={onDelete} loading={loading} />
+      {/* Tab Content */}
+      {activeTab === "videos" && (
+        <>
+          <div className="rounded-xl border border-black/10 dark:border-white/15 p-4 bg-black/5 dark:bg-white/5">
+            <div className="flex flex-col sm:flex-row gap-3 items-center">
+              <input
+                placeholder="Title"
+                className="w-full rounded-lg bg-black/5 dark:bg-white/10 px-3 py-2 text-sm text-black dark:text-white outline-none"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <input
+                placeholder="YouTube URL (optional)"
+                className="w-full rounded-lg bg-black/5 dark:bg-white/10 px-3 py-2 text-sm text-black dark:text-white outline-none"
+                value={youtubeUrl}
+                onChange={(e) => setYoutubeUrl(e.target.value)}
+              />
+              <input
+                type="file"
+                accept="video/*"
+                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                className="text-black/80 dark:text-white/80"
+              />
+              <button
+                onClick={onUpload}
+                disabled={loading || (!file && !youtubeUrl.trim())}
+                className="inline-flex items-center gap-2 rounded-lg bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white disabled:opacity-50"
+              >
+                {status === "uploading" ? (
+                  <>
+                    <RiLoader4Line className="animate-spin" /> Uploading...
+                  </>
+                ) : (
+                  <>
+                    <RiUploadCloud2Line /> Upload
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Manage list inline for admin convenience */}
+          <AdminList onDelete={onDelete} loading={loading} />
+        </>
+      )}
+
+      {activeTab === "skills" && <SkillManager />}
     </div>
   );
 }
