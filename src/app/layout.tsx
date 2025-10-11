@@ -43,6 +43,12 @@ export default function RootLayout({
         <meta name="msapplication-TileImage" content="/images/khalil.png" />
         <link rel="canonical" href="https://khalil-studio.vercel.app" />
         
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Khalil Studio" />
+        
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/khalil.png" />
@@ -61,6 +67,7 @@ export default function RootLayout({
           <TestimonialProvider>{children}</TestimonialProvider>
           <Toaster position="top-right" toastOptions={{ duration: 2500 }} />
         </ThemeProvider>
+        <script src="/install-prompt.js" defer></script>
       </body>
     </html>
   );
