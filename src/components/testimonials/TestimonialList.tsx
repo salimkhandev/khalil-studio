@@ -1,7 +1,7 @@
 "use client";
 import { useTestimonials } from "@/context/TestimonialContext";
 import { useEffect, useRef, useState } from "react";
-import { RiPauseFill, RiPlayFill, RiVolumeMuteFill, RiVolumeUpFill } from "react-icons/ri";
+import { RiPauseFill, RiPlayFill } from "react-icons/ri";
 
 // Global state to track currently playing video
 let currentlyPlayingVideo: string | null = null;
@@ -82,7 +82,7 @@ function YouTubePlayer({ url, title }: { url: string; title: string }) {
 }
 
 function Html5VideoWithMute({ url, videoId }: { url: string; videoId: string }) {
-  const [muted, setMuted] = useState(true);
+  const [muted] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMobile, setIsMobile] = useState(false);

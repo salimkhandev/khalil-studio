@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
   });
 
   // Listen for the appinstalled event
-  window.addEventListener('appinstalled', (evt) => {
+  window.addEventListener('appinstalled', () => {
     console.log('App was installed');
     isInstalled = true;
     hideInstallButton();
@@ -60,7 +60,7 @@ function showInstallButton() {
         <polyline points="7,10 12,15 17,10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>
-      Install App
+      Install for quick access
     `;
     installButton.className = 'fixed bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 transition-colors z-50';
     installButton.style.display = 'flex';

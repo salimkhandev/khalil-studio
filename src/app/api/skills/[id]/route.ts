@@ -69,7 +69,7 @@ export async function PUT(
     const { title, description, tools, order, isActive } = body;
 
     const skill = await Skill.findOneAndUpdate(
-      { _id: id, userId: adminAuth },
+      { _id: id },
       {
         ...(title && { title }),
         ...(description !== undefined && { description }),

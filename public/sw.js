@@ -1,11 +1,8 @@
 // Service Worker for Khalil Studio
 // This service worker only handles the install prompt and does not cache anything
 
-const CACHE_NAME = 'khalil-studio-v1';
-const INSTALL_PROMPT_EVENT = 'beforeinstallprompt';
-
 // Install event - do nothing, no caching
-self.addEventListener('install', (event) => {
+self.addEventListener('install', () => {
   console.log('Service Worker: Install event');
   // Skip waiting to activate immediately
   self.skipWaiting();
@@ -19,7 +16,7 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch event - do nothing, no caching, just pass through
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', () => {
   // Do not cache anything, just pass through to network
   // This ensures all requests go directly to the server
   return;
@@ -33,13 +30,13 @@ self.addEventListener('message', (event) => {
 });
 
 // Handle push notifications (if needed in future)
-self.addEventListener('push', (event) => {
+self.addEventListener('push', () => {
   // No push notifications for now
   console.log('Service Worker: Push event received');
 });
 
 // Handle notification click
-self.addEventListener('notificationclick', (event) => {
+self.addEventListener('notificationclick', () => {
   // No notifications for now
   console.log('Service Worker: Notification click event');
 });

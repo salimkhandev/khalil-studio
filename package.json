@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@botpress/webchat": "^3.2.11",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.3.0",
     "cloudinary": "^2.7.0",
