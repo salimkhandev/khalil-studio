@@ -4,7 +4,9 @@ import { RiWhatsappLine } from "react-icons/ri";
 
 export default function WhatsAppButton() {
   const phone = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "+923012444831";
-  const href = `https://wa.me/${phone.replace(/[^\d+]/g, "")}`;
+  const sanitizedPhone = phone.replace(/[^\d+]/g, "");
+  const presetMessage = "Hello Khalil, I found your number on your website, I want to talk about video editing";
+  const href = `https://wa.me/${sanitizedPhone}?text=${encodeURIComponent(presetMessage)}`;
   return (
     <Link
       href={href}
