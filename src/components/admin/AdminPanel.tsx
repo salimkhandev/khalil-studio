@@ -23,24 +23,55 @@ export default function AdminPanel() {
     setLoading(true);
     setStatus("uploading");
     try {
-      const fd = new FormData();
-      fd.append("title", title.trim());
-      if (file) fd.append("file", file);
-      if (youtubeUrl.trim()) fd.append("youtubeUrl", youtubeUrl.trim());
-      const res = await fetch("/api/videos", { method: "POST", body: fd });
-      if (!res.ok) throw new Error("Upload failed");
+      // If YouTube URL, send directly as JSON metadata
+      if (!file && youtubeUrl.trim()) {
+        const res = await fetch("/api/videos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: title.trim(), youtubeUrl: youtubeUrl.trim() }),
+        });
+        if (!res.ok) throw new Error("Upload failed");
+      } else if (file) {
+        // Direct upload to Cloudinary
+        const signRes = await fetch("/api/cloudinary/sign");
+        if (!signRes.ok) throw new Error("Failed to get upload signature");
+        const { cloudName, apiKey, timestamp, signature, folder } = await signRes.json();
+
+        const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`;
+        const form = new FormData();
+        form.append("file", file);
+        form.append("api_key", apiKey);
+        form.append("timestamp", String(timestamp));
+        form.append("signature", signature);
+        form.append("folder", folder);
+
+        const cloudRes = await fetch(uploadUrl, { method: "POST", body: form });
+        if (!cloudRes.ok) throw new Error("Cloudinary upload failed");
+        const uploaded = await cloudRes.json();
+
+        const saveRes = await fetch("/api/videos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: title.trim(),
+            secureUrl: uploaded.secure_url,
+            publicId: uploaded.public_id,
+          }),
+        });
+        if (!saveRes.ok) throw new Error("Save failed");
+      }
       await refresh();
       setTitle("");
       setFile(null);
       setYoutubeUrl("");
       toast.success("Upload successful");
       setStatus("idle");
+    } catch (err) {
+      console.error(err);
+      toast.error("Upload failed");
+      setStatus("idle");
     } finally {
       setLoading(false);
-      if (status === "uploading") {
-        toast.error("Upload failed");
-        setStatus("idle");
-      }
     }
   };
 

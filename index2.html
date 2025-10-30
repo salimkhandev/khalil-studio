@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.container {
+  display: flex;
+  width: 900px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 30%;
+  background: #1e293b;
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+
+.profile-pic img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.sidebar .title {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 25px;
+}
+
+.section {
+  text-align: left;
+  margin-top: 25px;
+}
+
+.section h3 {
+  font-size: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #475569;
+  padding-bottom: 5px;
+}
+
+.section p,
+.section li {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.section ul {
+  list-style: none;
+}
+
+.section i {
+  margin-right: 8px;
+  color: #38bdf8;
+}
+
+/* Main Content */
+.main {
+  width: 70%;
+  padding: 30px;
+}
+
+.main section {
+  margin-bottom: 30px;
+}
+
+.main h2 {
+  color: #111827;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 5px;
+}
+
+.job {
+  margin-bottom: 20px;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.job-header h3 {
+  color: #1e293b;
+  font-size: 16px;
+}
+
+.job-header span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.job ul {
+  margin-top: 5px;
+  margin-left: 20px;
+  list-style: disc;
+}
+
+.job ul li {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.edu h3 {
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.edu p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+</style>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="profile-pic">
+                <img src="https://via.placeholder.com/150" alt="Profile" />
+            </div>
+            <h2>Your Name</h2>
+            <p class="title">Software Engineer</p>
+
+            <div class="section">
+                <h3>CONTACT</h3>
+                <p><i class="fa-solid fa-phone"></i> +1 2345 6789</p>
+                <p><i class="fa-solid fa-envelope"></i> example@gmail.com</p>
+                <p><i class="fa-solid fa-location-dot"></i> #1 road, city/state-0011</p>
+            </div>
+
+            <div class="section">
+                <h3>SKILLS</h3>
+                <ul>
+                    <li>SQL Database Management</li>
+                    <li>Linux/Unix Command Line</li>
+                    <li>Python</li>
+                    <li>C++</li>
+                    <li>Java</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>LANGUAGES</h3>
+                <ul>
+                    <li>English: <span>Proficient</span></li>
+                    <li>Hindi: <span>Proficient</span></li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>HOBBIES</h3>
+                <ul>
+                    <li>Writing</li>
+                    <li>Cricket</li>
+                    <li>Music</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Content -->
+        <div class="main">
+            <section>
+                <h2>PROFILE</h2>
+                <p>
+                    I am a software engineer with experience in a variety of programming
+                    languages and a track record of delivering high-quality code. I am
+                    skilled in problem-solving and have a strong background in computer
+                    science. I am a strong communicator and enjoy working collaboratively
+                    with others.
+                </p>
+            </section>
+
+            <section>
+                <h2>WORK EXPERIENCE</h2>
+
+                <div class="job">
+                    <div class="job-header">
+                        <h3>Senior Software Developer</h3>
+                        <span>Jan 2022 – Dec 2023</span>
+                    </div>
+                    <p>Company – Country</p>
+                    <ul>
+                        <li>Developed and maintained software using Java, Python, and C++</li>
+                        <li>Led cross-functional teams to deliver successful software projects</li>
+                        <li>Collaborated with stakeholders to gather technical requirements and improve product
+                            performance</li>
+                        <li>Implemented CI/CD pipelines for faster software delivery</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <h3>Web Developer</h3>
+                        <span>Jan 2021 – Dec 2021</span>
+                    </div>
+                    <p>Company – Country</p>
+                    <ul>
+                        <li>Developed and maintained various web applications using HTML, CSS, JavaScript, and PHP</li>
+                        <li>Worked with cross-functional teams to gather requirements and design user interfaces</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>EDUCATION</h2>
+                <div class="edu">
+                    <h3>Masters in Software Engineering</h3>
+                    <p>Jan 2019 – Dec 2020</p>
+                    <p>XYX University, Bangalore</p>
+                </div>
+
+                <div class="edu">
+                    <h3>Bachelor in Computer Science</h3>
+                    <p>Jan 2015 – Dec 2018</p>
+                    <p>XYX University, Bangalore</p>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>

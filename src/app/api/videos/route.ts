@@ -20,6 +20,41 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     await connectToDatabase();
+    const contentType = request.headers.get("content-type") || "";
+
+    // JSON path: accept metadata after a direct-to-Cloudinary upload
+    if (contentType.includes("application/json")) {
+      const body = await request.json();
+      const title = String(body.title || "Untitled");
+      const secureUrl: string | undefined = body.secureUrl;
+      const publicId: string | undefined = body.publicId;
+      const youtubeUrl: string | undefined = body.youtubeUrl;
+
+      if (youtubeUrl && youtubeUrl.trim().length > 0) {
+        const generateUniqueId = () => `youtube_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const created = await Video.create({
+          title,
+          url: youtubeUrl.trim(),
+          publicId: generateUniqueId(),
+          sourceType: "youtube",
+        });
+        return NextResponse.json(created, { status: 201 });
+      }
+
+      if (!secureUrl || !publicId) {
+        return NextResponse.json({ error: "secureUrl and publicId are required" }, { status: 400 });
+      }
+
+      const created = await Video.create({
+        title,
+        url: secureUrl,
+        publicId,
+        sourceType: "cloudinary",
+      });
+      return NextResponse.json(created, { status: 201 });
+    }
+
+    // Multipart path (local dev or small files)
     const formData = await request.formData();
 
   const file = formData.get("file");
